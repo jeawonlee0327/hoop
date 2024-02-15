@@ -7,4 +7,6 @@ interface StoreService {
     fun getStoresBySituation(status: String): List<StoreDto>
     fun getStoresByTotalEvaluationAndSituation(rating: Int, status: String): List<StoreDto>
     fun searchStores(name: String?, domain: String?, email: String?): List<StoreDto>
+    fun deleteStore(shopName: String)
+
     }

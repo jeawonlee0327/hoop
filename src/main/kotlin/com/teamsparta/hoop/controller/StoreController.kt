@@ -3,6 +3,7 @@ package com.teamsparta.hoop.controller
 import com.teamsparta.hoop.dto.StoreDto
 import com.teamsparta.hoop.service.StoreService
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
@@ -47,4 +48,13 @@ class StoreController(
         val stores = storeService.searchStores(name, domain, email)
         return ResponseEntity.ok(stores)
     }
+
+    @DeleteMapping("/delete")
+    fun deleteStore(
+        @RequestParam shopName: String
+    ): ResponseEntity<Unit> {
+        storeService.deleteStore(shopName)
+        return ResponseEntity.noContent().build()
+    }
+
 }

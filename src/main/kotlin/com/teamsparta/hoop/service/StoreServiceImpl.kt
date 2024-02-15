@@ -1,11 +1,15 @@
 package com.teamsparta.hoop.service
 
+import com.teamsparta.hoop.exception.BusinessException
 import com.teamsparta.hoop.dto.StoreDto
 import com.teamsparta.hoop.repository.StoreRepository
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
-class StoreServiceImpl(private val storeRepository: StoreRepository) : StoreService {
+class StoreServiceImpl(
+    private val storeRepository: StoreRepository
+) : StoreService {
 
     override fun getStoresByTotalEvaluation(rating: Int): List<StoreDto> {
         return storeRepository.findAll()
@@ -27,7 +31,11 @@ class StoreServiceImpl(private val storeRepository: StoreRepository) : StoreServ
             .sortedByDescending { it.monitoringDate }
             .map { StoreDto(it) }
     }
-    override fun searchStores(name: String?, domain: String?, email: String?): List<StoreDto> {
+    override fun searchStores(
+        name: String?,
+        domain: String?,
+        email: String?
+    ): List<StoreDto> {
         return storeRepository.findAll()
             .filter { store ->
                 (name == null || store.shopName.contains(name))
@@ -36,6 +44,18 @@ class StoreServiceImpl(private val storeRepository: StoreRepository) : StoreServ
             }
             .sortedByDescending { it.monitoringDate }
             .map { StoreDto(it) }
+    }
+
+    @Transactional
+    override fun deleteStore(shopName: String) {
+        try {
+            val store = storeRepository.findByShopName(shopName)
+            if (store != null) {
+                storeRepository.delete(store)
+            }
+        } catch (e: NoSuchElementException) {
+            throw BusinessException("업체를 찾을 수 없습니다. shopName: $shopName")
+        }
     }
 
 }
