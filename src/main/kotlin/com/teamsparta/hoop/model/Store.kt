@@ -44,22 +44,22 @@ val firstReportDate: String,
 val situation: String,
 
 @Column(name = "total_evaluation")
-val totalEvaluation: Int,
+val totalEvaluation: Int? = null,
 
 @Column(name = "withdrawal_evaluation")
-val withdrawalEvaluation: Int,
+val withdrawalEvaluation: Int? = null,
 
 @Column(name = "business_information_evaluation")
-val businessInformationEvaluation: Int,
+val businessInformationEvaluation: Int? = null,
 
 @Column(name = "approval_evaluation")
-val approvalEvaluation: Int,
+val approvalEvaluation: Int? = null,
 
 @Column(name = "terms_evaluation")
-val termsEvaluation: Int,
+val termsEvaluation: Int? = null,
 
 @Column(name = "privacy_evaluation")
-val privacyEvaluation: Int,
+val privacyEvaluation: Int? = null,
 
 @Column(name = "main_item")
 val mainItem: String,
