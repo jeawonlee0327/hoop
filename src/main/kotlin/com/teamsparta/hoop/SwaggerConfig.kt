@@ -15,8 +15,8 @@ class SwaggerConfig {
             .components(Components())
             .info(
                 Info()
-                    .title("Course API")
-                    .description("Course API schema")
+                    .title("Store API")
+                    .description("Store API schema")
                     .version("1.0.0")
             )
     }
