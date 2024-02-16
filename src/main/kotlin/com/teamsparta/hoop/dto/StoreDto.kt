@@ -9,9 +9,9 @@ data class StoreDto(
     val domain: String,
     val email: String,
     val phoneNumber: String,
-    val businessType: String,
+    val businessType: String?,
     val address: String,
-    val totalEvaluation: Int,
+    val totalEvaluation: Int?, // 타입을 Int?로 변경
     val situation: String,
     val monitoringDate: String
 ) {
