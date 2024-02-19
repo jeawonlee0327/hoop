@@ -35,7 +35,13 @@ class StoreServiceImpl(
 
     override fun getStoresByTotalEvaluationAndSituation(rating: Int, status: String): List<StoreDto> {
         if (rating < 0 || rating > 3) {
-            throw BusinessException("잘못된 숫자입니다. 숫자는 0 이상 3 이하의 값이어야 합니다.")}
+            throw BusinessException("잘못된 숫자입니다. 숫자는 0 이상 3 이하의 값이어야 합니다.")
+        }
+        val allowedStatuses = listOf("사이트운영중단", "휴업중", "광고용(홍보용)", "등록정보불일치", "사이트폐쇄", "영업중", "확인안됨")
+
+        if (status !in allowedStatuses) {
+            throw BusinessException("잘못 입력하셨습니다.")
+        }
         return storeRepository.findAll()
             .filter { it.totalEvaluation == rating && it.situation == status }
             .sortedByDescending { it.monitoringDate }
