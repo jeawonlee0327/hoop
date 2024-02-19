@@ -25,7 +25,7 @@ class StoreController(
     }
 
     @GetMapping("/status")
-    @Operation(summary = "점포 상태 조회", description = "사이트운영중단, 휴업중, 광고용(홍보용), 등록정보불일치, 사이트폐쇄, 영업중, 확인안됨 상태 중 1개를 선택하세요.")
+    @Operation(summary = "가게 상태 조회", description = "사이트운영중단, 휴업중, 광고용(홍보용), 등록정보불일치, 사이트폐쇄, 영업중, 확인안됨 상태 중 1개를 선택하세요.")
     fun getStoresBySituation(
         @RequestParam status: String
     ): ResponseEntity<List<StoreDto>> {
@@ -34,7 +34,7 @@ class StoreController(
     }
 
     @GetMapping("/rating-status")
-    @Operation(summary = "전체평가, 점포 상태 조회", description = "0~3 까지의 숫자와 사이트운영중단, 휴업중, 광고용(홍보용), 등록정보불일치, 사이트폐쇄, 영업중, 확인안됨 상태 중 1개를 선택하세요.")
+    @Operation(summary = "전체평가, 가게 상태 조회", description = "0~3 까지의 숫자와 사이트운영중단, 휴업중, 광고용(홍보용), 등록정보불일치, 사이트폐쇄, 영업중, 확인안됨 상태 중 1개를 선택하세요.")
     fun getStoresByTotalEvaluationAndSituation(
         @RequestParam rating: Int,
         @RequestParam status: String
@@ -44,6 +44,7 @@ class StoreController(
     }
 
     @GetMapping("/search")
+    @Operation(summary = "가게 이름 검색", description = "이름, 사이트 주소, 이메일 중 하나만 입력해도 됩니다.")
     fun searchStores(
         @RequestParam(required = false) name: String?,
         @RequestParam(required = false) domain: String?,
@@ -54,6 +55,7 @@ class StoreController(
     }
 
     @DeleteMapping("/delete")
+    @Operation(summary = "가게 삭제", description = "입력한 이름과 같은 가게를 삭제합니다.")
     fun deleteStore(
         @RequestParam shopName: String
     ): ResponseEntity<Unit> {
