@@ -38,8 +38,6 @@ class StoreController(
         val stores = storeService.getStoresByTotalEvaluationAndSituation(rating, status)
         return ResponseEntity.ok(stores)
     }
-<<<<<<<<< Temporary merge branch 1
-=========
 
     @GetMapping("/search")
     fun searchStores(
