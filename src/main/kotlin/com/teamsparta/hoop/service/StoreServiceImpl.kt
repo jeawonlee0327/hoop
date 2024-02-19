@@ -12,6 +12,9 @@ class StoreServiceImpl(
 ) : StoreService {
 
     override fun getStoresByTotalEvaluation(rating: Int): List<StoreDto> {
+        if (rating < 0 || rating > 3) {
+            throw BusinessException("잘못된 숫자입니다. 숫자는 0 이상 3 이하의 값이어야 합니다.")
+        }
         return storeRepository.findAll()
             .filter { it.totalEvaluation == rating }//가져온 상점 정보 중에서 "totalEvaluation"이 입력받은 "rating"과 같은 상점만 필터링
             .sortedByDescending { it.monitoringDate }//필터링된 상점들을 "monitoringDate"를 기준으로 내림차순
@@ -19,27 +22,20 @@ class StoreServiceImpl(
     }
 
     override fun getStoresBySituation(status: String): List<StoreDto> {
+        val allowedStatuses = listOf("사이트운영중단", "휴업중", "광고용(홍보용)", "등록정보불일치", "사이트폐쇄", "영업중", "확인안됨")
+        if (status !in allowedStatuses) {
+            throw BusinessException("잘못 입력하셨습니다.")
+        }
         return storeRepository.findAll()
             .filter { it.situation == status }
             .sortedByDescending { it.monitoringDate }
             .map { StoreDto(it) }
     }
-//    .map { store -> StoreDto(
-//        id = store.id,
-//        shopName = store.shopName,
-//        mallName = store.mallName,
-//        domain = store.domain,
-//        email = store.email,
-//        phoneNumber = store.phoneNumber,
-//        businessType = store.businessType,
-//        address = store.address,
-//        totalEvaluation = store.totalEvaluation,
-//        situation = store.situation,
-//        monitoringDate = store.monitoringDate
-//        )} dto에 컨스트럭터로 긴거 안넣으며 여기에 이걸 넣어야 하기 때문
 
 
     override fun getStoresByTotalEvaluationAndSituation(rating: Int, status: String): List<StoreDto> {
+        if (rating < 0 || rating > 3) {
+            throw BusinessException("잘못된 숫자입니다. 숫자는 0 이상 3 이하의 값이어야 합니다.")}
         return storeRepository.findAll()
             .filter { it.totalEvaluation == rating && it.situation == status }
             .sortedByDescending { it.monitoringDate }
