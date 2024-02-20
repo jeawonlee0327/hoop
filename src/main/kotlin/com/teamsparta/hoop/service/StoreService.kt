@@ -1,17 +1,18 @@
 package com.teamsparta.hoop.service
 
+import com.teamsparta.hoop.repository.StoreRepository
 import jakarta.transaction.Transactional
 import org.springframework.stereotype.Service
 
-@Transactional(readOnly = true)
 @Service
-class StoreService {
-    private StoreReository StoreRepository;
+class StoreService(
+    storeRepository: StoreRepository
+) {
+@Transactional(readOnly = true)
+public ResponseDto<List<StoreResponseDto>> getStores(int rating, String criteria)
 
-    public void findAll(Pageable pageable)
-    {
-        postRepository.findByUserOrderByIdDesc(createUser(), pageable)
-            .map(StoreResponseDTO::from);
+    Pageable pageable = PageRequest.of()
+
     }
 
 }
