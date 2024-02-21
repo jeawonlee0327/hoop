@@ -14,20 +14,20 @@ class SwaggerConfig {
     @Bean
     fun openAPI(): OpenAPI {
         return OpenAPI()
-            .addSecurityItem(
-                SecurityRequirement().addList("Bearer Authentication")
-            )
-            .components(
-                Components().addSecuritySchemes(
-                    "Bearer Authentication",
-                    SecurityScheme()
-                        .type(SecurityScheme.Type.HTTP)
-                        .scheme("Bearer")
-                        .bearerFormat("JWT")
-                        .`in`(SecurityScheme.In.HEADER)
-                        .name("Authorization")
-                )
-            )
+//            .addSecurityItem(
+//                SecurityRequirement().addList("Bearer Authentication")
+//            )
+//            .components(
+//                Components().addSecuritySchemes(
+//                    "Bearer Authentication",
+//                    SecurityScheme()
+//                        .type(SecurityScheme.Type.HTTP)
+//                        .scheme("Bearer")
+//                        .bearerFormat("JWT")
+//                        .`in`(SecurityScheme.In.HEADER)
+//                        .name("Authorization")
+//                )
+//            )
             .info(
                 Info()
                     .title("Course API")

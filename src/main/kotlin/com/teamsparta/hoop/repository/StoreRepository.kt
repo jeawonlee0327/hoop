@@ -2,7 +2,7 @@ package com.teamsparta.hoop.repository
 
 import com.teamsparta.hoop.model.Store
 import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.stereotype.Repository
 
-public interface StoreRepository:JpaRepository<Store, Long> {
-    Page<Stores> findAll(Pageable pageable);
-}
+@Repository
+interface StoreRepository : JpaRepository<Store, Long> {}
