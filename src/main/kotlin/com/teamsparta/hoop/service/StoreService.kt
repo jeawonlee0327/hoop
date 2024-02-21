@@ -11,7 +11,7 @@ class StoreService(private val storeRepository: StoreRepository) {
     /**
      *
      */
-    fun getStores(): List<StoreResponse> {
+    fun getStores(status): List<StoreResponse> {
         val result: List<StoreResponse> =
             storeRepository.findAll().map {
                 StoreResponse(
@@ -23,7 +23,8 @@ class StoreService(private val storeRepository: StoreRepository) {
                     phoneNumber = it.phoneNumber,
                     businessType = it.businessType,
                     address = it.address,
-                    firstReportDate = it.firstReportDate
+                    firstReportDate = it.firstReportDate,
+                    totalEvaluation = it.totalEvaluation
                 )
             }
 
@@ -33,7 +34,14 @@ class StoreService(private val storeRepository: StoreRepository) {
     /**
      *
      */
-    fun getStores2(): List<StoreResponse> {
+    fun getStores2(totalEvaluation): List<StoreResponse> {
+        val message = when(totalEvaluation) {
+            "3" -> "Great"
+            "2" -> "Good"
+            "1" -> "Normal"
+            "0" -> "Bad"
+            else ->
+        }
         val result: List<StoreResponse> =
             storeRepository.findAll().map {
                 StoreResponse(
@@ -45,7 +53,8 @@ class StoreService(private val storeRepository: StoreRepository) {
                     phoneNumber = it.phoneNumber,
                     businessType = it.businessType,
                     address = it.address,
-                    firstReportDate = it.firstReportDate
+                    firstReportDate = it.firstReportDate,
+                    totalEvaluation = it.totalEvaluation
                 )
             }
 

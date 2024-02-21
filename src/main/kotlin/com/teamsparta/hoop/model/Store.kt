@@ -42,9 +42,9 @@ val firstReportDate: String,
 
 //@Column(name = "situation")
 //val situation: String,
-//
-//@Column(name = "total_evaluation")
-//val totalEvaluation: Int,
+
+@Column(name = "total_evaluation")
+val totalEvaluation: String,
 
 //@Column(name = "withdrawal_evaluation")
 //val withdrawalEvaluation: Int,

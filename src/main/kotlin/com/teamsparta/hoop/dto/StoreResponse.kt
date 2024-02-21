@@ -9,5 +9,6 @@ data class StoreResponse(
     val phoneNumber : String?,
     val businessType: String?,
     val address: String?,
-    val firstReportDate: String?
+    val firstReportDate: String?,
+    val totalEvaluation: String?
 )
