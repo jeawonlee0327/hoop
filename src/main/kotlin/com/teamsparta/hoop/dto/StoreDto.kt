@@ -3,7 +3,7 @@ package com.teamsparta.hoop.dto
 import com.teamsparta.hoop.model.Store
 
 data class StoreDto(
-    val id: Int,
+    val id: Int?,
     val shopName: String,
     val mallName: String,
     val domain: String,

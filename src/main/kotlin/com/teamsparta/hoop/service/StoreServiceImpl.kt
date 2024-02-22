@@ -5,6 +5,8 @@ import com.teamsparta.hoop.dto.StoreDto
 import com.teamsparta.hoop.repository.StoreRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import org.springframework.web.multipart.MultipartFile
+import java.nio.file.Paths
 
 @Service
 class StoreServiceImpl(
@@ -47,6 +49,7 @@ class StoreServiceImpl(
             .sortedByDescending { it.monitoringDate }
             .map { StoreDto(it) }
     }
+
     override fun searchStores(
         name: String?,
         domain: String?,
@@ -55,8 +58,8 @@ class StoreServiceImpl(
         return storeRepository.findAll()
             .filter { store ->
                 (name == null || store.shopName.contains(name))
-                        &&(domain == null || store.domain.contains(domain))
-                        &&(email == null || store.email.contains(email))
+                        && (domain == null || store.domain.contains(domain))
+                        && (email == null || store.email.contains(email))
             }
             .sortedByDescending { it.monitoringDate }
             .map { StoreDto(it) }
@@ -74,4 +77,68 @@ class StoreServiceImpl(
         }
     }
 
+    override fun save(file: MultipartFile) {
+        val path = Paths.get("/path/to/save/" + file.originalFilename)
+        file.transferTo(path)
+    }
+
+
+
+
+
+
+
+
+
+//    override fun loadCsvFile() {
+//        val path = "C:/Users/asdf/Desktop/대용량 보조/서울시 간략.csv"
+//        val rows: List<Map<String, String>> = csvReader().readAllWithHeader(path)
+//
+//        rows.map { row ->
+//            Store(
+//                id = row["id"]!!.toInt(),
+//                createdAt = row["created_at"]!!,
+//                shopName = row["shop_name"]!!,
+//                mallName = row["mall_name"]!!,
+//                domain = row["domain"]!!,
+//                email = row["email"]!!,
+//                phoneNumber = row["phone_number"]!!,
+//                businessType = row["business_type"]!!,
+//                address = row["address"]!!,
+//                saleNumber = row["sale_number"]!!,
+//                firstReportDate = row["first_report_date"]!!,
+//                situation = row["situation"]!!,
+//                totalEvaluation = row["total_evaluation"]?.toInt(),
+//                withdrawalEvaluation = row["withdrawal_evaluation"]?.toInt(),
+//                businessInformationEvaluation = row["business_information_evaluation"]?.toInt(),
+//                approvalEvaluation = row["approval_evaluation"]?.toInt(),
+//                termsEvaluation = row["terms_evaluation"]?.toInt(),
+//                privacyEvaluation = row["privacy_evaluation"]?.toInt(),
+//                mainItem = row["main_item"]!!,
+//                withdrawPossible = row["withdraw_possible"]!!,
+//                initialScreen = row["initial_screen"]!!,
+//                payment = row["payment"]!!,
+//                termCompliance = row["term_compliance"]!!,
+//                privacyStatement = row["privacy_statement"]!!,
+//                requestTermOver = row["request_term_over"]!!,
+//                safetyService = row["safety_service"]!!,
+//                securityServer = row["security_server"]!!,
+//                certificationMark = row["certification_mark"]!!,
+//                deliveryDate = row["delivery_date"]!!,
+//                refundDeliveryFee = row["refund_delivery_fee"]!!,
+//                customerComplaintBoard = row["customer_complaint_board"]!!,
+//                cancelMembership = row["cancel_membership"]!!,
+//                siteOpening = row["site_opening"]!!,
+//                monitoringDate = row["monitoring_date"]!!
+//            )
+//        }.forEach { store ->
+//            storeRepository.save(store)
+//        }
+//    }
+
+
 }
+
+
+
+

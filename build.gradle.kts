@@ -1,5 +1,6 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
+
 plugins {
     id("org.springframework.boot") version "3.2.1"
     id("io.spring.dependency-management") version "1.1.4"
@@ -61,6 +62,9 @@ dependencies {
 
     implementation("com.querydsl:querydsl-jpa:5.0.0:jakarta")
     kapt("com.querydsl:querydsl-apt:5.0.0:jakarta")
+
+    implementation("com.github.doyaaaaaken:kotlin-csv-jvm:0.15.0")//외부라이브러리??
+
 }
 
 tasks.withType<KotlinCompile> {
@@ -73,3 +77,4 @@ tasks.withType<KotlinCompile> {
 tasks.withType<Test> {
     useJUnitPlatform()
 }
+
