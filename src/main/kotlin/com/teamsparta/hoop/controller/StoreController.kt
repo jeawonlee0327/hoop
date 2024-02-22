@@ -85,71 +85,8 @@ class StoreController(
         reader.close()
     }
 
-
-
-
-
-
-//    @PostMapping("/upload", consumes = ["multipart/form-data"])
-//    fun uploadFile(@RequestParam("file") file: MultipartFile) {
-//        if (file.isEmpty) {
-//            // 파일이 비어있는지 확인
-//            println("File is empty")
-//            return
-//        }
-//
-//        // MultipartFile을 BufferedReader로 변환
-//        val reader = BufferedReader(InputStreamReader(file.inputStream))
-//
-//
-//        // CSV 파일의 각 라인을 읽어 처리
-//        var line: String? = reader.readLine()
-//        while (line != null && reader.readLine().also { line = it } != null) {
-//            val data = line!!.split(",")
-//            println("Data[8]: ${data[8]}")
-//            println("Data[31]: ${data[31]}")
-//            println(line)
-//
-//            val store = Store(
-//                shopName = data[0],
-//                mallName = data[1],
-//                domain = data[2],
-//                phoneNumber = data[3],
-//                email = data[4],
-//                businessType = data[5],
-//                address = data[6],
-//                saleNumber = data[7],
-//                firstReportDate = LocalDate.parse(data[8], DateTimeFormatter.ofPattern("yyyy-MM-dd")),
-//                totalEvaluation = data[10].toIntOrNull() ?: 0,
-//                businessInformationEvaluation = data[11].toIntOrNull() ?: 0,
-//                withdrawalEvaluation = data[12].toIntOrNull() ?: 0,
-//                approvalEvaluation = data[13].toIntOrNull() ?: 0,
-//                termsEvaluation = data[14].toIntOrNull() ?: 0,
-//                privacyEvaluation = data[15].toIntOrNull() ?: 0,
-//                mainItem = data[16],
-//                withdrawPossible = data[17],
-//                initialScreen = data[18],
-//                payment = data[19],
-//                termCompliance = data[20],
-//                privacyStatement = data[21],
-//                requestTermOver = data[22],
-//                safetyService = data[23],
-//                securityServer = data[24],
-//                certificationMark = data[25],
-//                deliveryDate = data[26],
-//                refundDeliveryFee = data[27],
-//                customerComplaintBoard = data[28],
-//                cancelMembership = data[29],
-//                siteOpening = data[30],
-//                monitoringDate = LocalDate.parse(data[31], DateTimeFormatter.ofPattern("yyyy-MM-dd")),
-//            )
-//            storeRepository.save(store)
-//        }
-//        reader.close()
-//
-//    }
-
-    @PutMapping("/rating-status")
+    @PostMapping("/rating-status")
+    @Operation(summary = "가게 정보 생성", description = "생성 할 정보를 입력하세요.")
     fun createStore(
         @RequestParam shopName: String,
         @RequestParam mallName: String,
@@ -177,7 +114,8 @@ class StoreController(
         return ResponseEntity.ok(store)
     }
 
-    @PostMapping("/rating-status")
+    @PutMapping("/rating-status")
+    @Operation(summary = "가게 정보 수정", description = "수정 할 정보를 입력하세요.")
     fun updateStore(
         @RequestParam id: Int,
         @RequestParam shopName: String,
