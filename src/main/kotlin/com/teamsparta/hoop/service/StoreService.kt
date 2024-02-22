@@ -2,18 +2,17 @@ package com.teamsparta.hoop.service
 
 import com.teamsparta.hoop.dto.StoreResponse
 import com.teamsparta.hoop.repository.StoreRepository
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 
 @Service
 class StoreService(private val storeRepository: StoreRepository) {
 
-    /**
-     *
-     */
-    fun getStores(status : String): List<StoreResponse> {
-        val result: List<StoreResponse> =
-            storeRepository.findAll().map {
-                StoreResponse(
+    fun getStores(situation : String, pageable: Pageable): Page<StoreResponse> {
+        val result: Page<StoreResponse> =
+            storeRepository.findBySituation(situation,pageable)
+                .map { StoreResponse(
                     id = it.id,
                     shopName = it.shopName,
                     mallName = it.mallName,
@@ -33,16 +32,10 @@ class StoreService(private val storeRepository: StoreRepository) {
     /**
      *
      */
-    fun getStores2(totalEvaluation: String): List<StoreResponse> {
-        val message = when(totalEvaluation) {
-            "in 2..3" -> "Good"
-            "1" -> "Normal"
-            "0" -> "Bad"
-            else -> "unknown"
-        }
-        val result: List<StoreResponse> =
-            storeRepository.findAll().map {
-                StoreResponse(
+    fun getStores2(totalEvaluation: String, pageable: Pageable): Page<StoreResponse> {
+        val result: Page<StoreResponse> =
+            storeRepository.findByTotalEvaluation(totalEvaluation,pageable)
+                .map { StoreResponse(
                     id = it.id,
                     shopName = it.shopName,
                     mallName = it.mallName,

@@ -40,8 +40,8 @@ val address: String,
 @Column(name = "first_report_date")
 val firstReportDate: String,
 
-//@Column(name = "situation")
-//val situation: String,
+@Column(name = "situation")
+val situation: String,
 
 @Column(name = "total_evaluation")
 val totalEvaluation: String,
