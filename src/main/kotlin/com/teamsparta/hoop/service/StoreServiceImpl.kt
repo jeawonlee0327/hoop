@@ -25,13 +25,26 @@ class StoreServiceImpl(
     }
 
     override fun getStoresBySituation(status: String): List<StoreDto> {
+        val allowedStatuses = listOf("사이트운영중단", "휴업중", "광고용(홍보용)", "등록정보불일치", "사이트폐쇄", "영업중", "확인안됨")
+        if (status !in allowedStatuses) {
+            throw BusinessException("잘못 입력하셨습니다.")
+        }
         return storeRepository.findAll()
             .filter { it.situation == status }
             .sortedByDescending { it.monitoringDate }
             .map { StoreDto(it) }
     }
 
+
     override fun getStoresByTotalEvaluationAndSituation(rating: Int, status: String): List<StoreDto> {
+        if (rating < 0 || rating > 3) {
+            throw BusinessException("잘못된 숫자입니다. 숫자는 0 이상 3 이하의 값이어야 합니다.")
+        }
+        val allowedStatuses = listOf("사이트운영중단", "휴업중", "광고용(홍보용)", "등록정보불일치", "사이트폐쇄", "영업중", "확인안됨")
+
+        if (status !in allowedStatuses) {
+            throw BusinessException("잘못 입력하셨습니다.")
+        }
         return storeRepository.findAll()
             .filter { it.totalEvaluation == rating && it.situation == status }
             .sortedByDescending { it.monitoringDate }
@@ -65,54 +78,6 @@ class StoreServiceImpl(
         file.transferTo(path)
     }
 
-
-
-
-//    override fun loadCsvFile() {
-//        val path = "C:/Users/asdf/Desktop/대용량 보조/서울시 간략.csv"
-//        val rows: List<Map<String, String>> = csvReader().readAllWithHeader(path)
-//
-//        rows.map { row ->
-//            Store(
-//                id = row["id"]!!.toInt(),
-//                createdAt = row["created_at"]!!,
-//                shopName = row["shop_name"]!!,
-//                mallName = row["mall_name"]!!,
-//                domain = row["domain"]!!,
-//                email = row["email"]!!,
-//                phoneNumber = row["phone_number"]!!,
-//                businessType = row["business_type"]!!,
-//                address = row["address"]!!,
-//                saleNumber = row["sale_number"]!!,
-//                firstReportDate = row["first_report_date"]!!,
-//                situation = row["situation"]!!,
-//                totalEvaluation = row["total_evaluation"]?.toInt(),
-//                withdrawalEvaluation = row["withdrawal_evaluation"]?.toInt(),
-//                businessInformationEvaluation = row["business_information_evaluation"]?.toInt(),
-//                approvalEvaluation = row["approval_evaluation"]?.toInt(),
-//                termsEvaluation = row["terms_evaluation"]?.toInt(),
-//                privacyEvaluation = row["privacy_evaluation"]?.toInt(),
-//                mainItem = row["main_item"]!!,
-//                withdrawPossible = row["withdraw_possible"]!!,
-//                initialScreen = row["initial_screen"]!!,
-//                payment = row["payment"]!!,
-//                termCompliance = row["term_compliance"]!!,
-//                privacyStatement = row["privacy_statement"]!!,
-//                requestTermOver = row["request_term_over"]!!,
-//                safetyService = row["safety_service"]!!,
-//                securityServer = row["security_server"]!!,
-//                certificationMark = row["certification_mark"]!!,
-//                deliveryDate = row["delivery_date"]!!,
-//                refundDeliveryFee = row["refund_delivery_fee"]!!,
-//                customerComplaintBoard = row["customer_complaint_board"]!!,
-//                cancelMembership = row["cancel_membership"]!!,
-//                siteOpening = row["site_opening"]!!,
-//                monitoringDate = row["monitoring_date"]!!
-//            )
-//        }.forEach { store ->
-//            storeRepository.save(store)
-//        }
-//    }
 
 
 
