@@ -2,7 +2,6 @@ package com.teamsparta.hoop.service
 
 import com.teamsparta.hoop.dto.StoreResponse
 import com.teamsparta.hoop.repository.StoreRepository
-import jakarta.transaction.Transactional
 import org.springframework.stereotype.Service
 
 @Service
@@ -11,7 +10,7 @@ class StoreService(private val storeRepository: StoreRepository) {
     /**
      *
      */
-    fun getStores(status): List<StoreResponse> {
+    fun getStores(status : String): List<StoreResponse> {
         val result: List<StoreResponse> =
             storeRepository.findAll().map {
                 StoreResponse(
@@ -34,13 +33,12 @@ class StoreService(private val storeRepository: StoreRepository) {
     /**
      *
      */
-    fun getStores2(totalEvaluation): List<StoreResponse> {
+    fun getStores2(totalEvaluation: String): List<StoreResponse> {
         val message = when(totalEvaluation) {
-            "3" -> "Great"
-            "2" -> "Good"
+            "in 2..3" -> "Good"
             "1" -> "Normal"
             "0" -> "Bad"
-            else ->
+            else -> "unknown"
         }
         val result: List<StoreResponse> =
             storeRepository.findAll().map {

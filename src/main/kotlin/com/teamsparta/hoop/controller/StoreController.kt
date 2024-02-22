@@ -18,15 +18,17 @@ class StoreController(
     @GetMapping(
         "/stores", produces = [MediaType.APPLICATION_JSON_VALUE]
     )
-    fun getStores(): ResponseEntity<List<StoreResponse>> {
-        return ResponseEntity.ok(storeService.getStores())
+    fun getStores(
+        @RequestParam status: String): ResponseEntity<List<StoreResponse>> {
+        return ResponseEntity.ok(storeService.getStores(status))
     }
 
     @GetMapping(
         "/stores2", produces = [MediaType.APPLICATION_JSON_VALUE]
     )
-    fun getStores2(): ResponseEntity<List<StoreResponse>> {
-        return ResponseEntity.ok(storeService.getStores2())
+    fun getStores2(
+        @RequestParam totalEvaluation: String): ResponseEntity<List<StoreResponse>> {
+        return ResponseEntity.ok(storeService.getStores2(totalEvaluation))
     }
 
 }
