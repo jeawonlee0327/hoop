@@ -13,5 +13,34 @@ interface StoreService {
     fun save(file: MultipartFile)
 
 
-}
 
+
+
+
+    fun createStore(
+        shopName: String,
+        mallName: String,
+        domain: String,
+        email: String,
+        phoneNumber: String,
+        businessType: String,
+        address: String,
+        totalEvaluation: Int,
+        situation: String,
+        monitoringDate: String
+    ): StoreDto
+
+    fun updateStore(
+        id: Int,
+        shopName: String,
+        mallName: String,
+        domain: String,
+        email: String,
+        phoneNumber: String,
+        businessType: String,
+        address: String,
+        totalEvaluation: Int,
+        situation: String,
+        monitoringDate: String
+    ): StoreDto
+}
