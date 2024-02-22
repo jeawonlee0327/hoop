@@ -155,3 +155,62 @@ class StoreController(
 
 
 
+
+    @PutMapping("/rating-status")
+    fun createStore(
+        @RequestParam shopName: String,
+        @RequestParam mallName: String,
+        @RequestParam domain: String,
+        @RequestParam email: String,
+        @RequestParam phoneNumber: String,
+        @RequestParam businessType: String,
+        @RequestParam address: String,
+        @RequestParam totalEvaluation: Int,
+        @RequestParam situation: String,
+        @RequestParam monitoringDate: String
+    ): ResponseEntity<StoreDto> {
+        val store = storeService.createStore(
+            shopName,
+            mallName,
+            domain,
+            email,
+            phoneNumber,
+            businessType,
+            address,
+            totalEvaluation,
+            situation,
+            monitoringDate
+        )
+        return ResponseEntity.ok(store)
+    }
+
+    @PostMapping("/rating-status")
+    fun updateStore(
+        @RequestParam id: Int,
+        @RequestParam shopName: String,
+        @RequestParam mallName: String,
+        @RequestParam domain: String,
+        @RequestParam email: String,
+        @RequestParam phoneNumber: String,
+        @RequestParam businessType: String,
+        @RequestParam address: String,
+        @RequestParam totalEvaluation: Int,
+        @RequestParam situation: String,
+        @RequestParam monitoringDate: String
+    ): ResponseEntity<StoreDto> {
+        val store = storeService.updateStore(
+            id,
+            shopName,
+            mallName,
+            domain,
+            email,
+            phoneNumber,
+            businessType,
+            address,
+            totalEvaluation,
+            situation,
+            monitoringDate
+        )
+        return ResponseEntity.ok(store)
+    }
+}

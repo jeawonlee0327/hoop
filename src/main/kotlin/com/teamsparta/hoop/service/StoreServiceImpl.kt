@@ -142,3 +142,64 @@ class StoreServiceImpl(
 
 
 
+
+    override fun createStore(
+        shopName: String,
+        mallName: String,
+        domain: String,
+        email: String,
+        phoneNumber: String,
+        businessType: String,
+        address: String,
+        totalEvaluation: Int,
+        situation: String,
+        monitoringDate: String
+    ): StoreDto {
+        val store = storeRepository.save(
+            Store(
+                shopName = shopName,
+                mallName = mallName,
+                domain = domain,
+                email = email,
+                phoneNumber = phoneNumber,
+                businessType = businessType,
+                address = address,
+                totalEvaluation = totalEvaluation,
+                situation = situation,
+                monitoringDate = monitoringDate
+            )
+        )
+        return StoreDto(store)
+    }
+
+    override fun updateStore(
+        id: Int,
+        shopName: String,
+        mallName: String,
+        domain: String,
+        email: String,
+        phoneNumber: String,
+        businessType: String,
+        address: String,
+        totalEvaluation: Int,
+        situation: String,
+        monitoringDate: String
+    ): StoreDto {
+        val store = storeRepository.save(
+            Store(
+                id = id,
+                shopName = shopName,
+                mallName = mallName,
+                domain = domain,
+                email = email,
+                phoneNumber = phoneNumber,
+                businessType = businessType,
+                address = address,
+                totalEvaluation = totalEvaluation,
+                situation = situation,
+                monitoringDate = monitoringDate
+            )
+        )
+        return StoreDto(store)
+    }
+}
