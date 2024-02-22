@@ -4,16 +4,16 @@ import com.teamsparta.hoop.model.Store
 
 data class StoreDto(
     val id: Int?,
-    val shopName: String,
-    val mallName: String,
-    val domain: String,
-    val email: String,
-    val phoneNumber: String,
+    val shopName: String?,
+    val mallName: String?,
+    val domain: String?,
+    val email: String?,
+    val phoneNumber: String?,
     val businessType: String?,
-    val address: String,
+    val address: String?,
     val totalEvaluation: Int?, // 타입을 Int?로 변경
-    val situation: String,
-    val monitoringDate: String
+    val situation: String?,
+    val monitoringDate: String?
 ) {
     constructor(store: Store) : this(
         id = store.id,

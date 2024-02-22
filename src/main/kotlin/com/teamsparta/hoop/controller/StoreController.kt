@@ -1,6 +1,8 @@
 package com.teamsparta.hoop.controller
 
 import com.teamsparta.hoop.dto.StoreDto
+import com.teamsparta.hoop.model.Store
+import com.teamsparta.hoop.repository.StoreRepository
 import com.teamsparta.hoop.service.StoreService
 import io.swagger.v3.oas.annotations.Operation
 import org.springframework.http.ResponseEntity
@@ -14,6 +16,7 @@ import java.io.InputStreamReader
 @RequestMapping("/api/stores")
 class StoreController(
     private val storeService: StoreService,
+    private val storeRepository: StoreRepository,
 ) {
     @GetMapping("/rating")
     @Operation(summary = "전체 점수 조회", description = "0~3 까지의 숫자를 입력하세요.")
@@ -66,7 +69,7 @@ class StoreController(
     @PostMapping("/upload", consumes = ["multipart/form-data"])
     fun uploadFile(@RequestParam("file") file: MultipartFile) {
         if (file.isEmpty) {
-// 파일이 비어있는지 확인
+            // 파일이 비어있는지 확인
             println("File is empty")
             return
         }
@@ -74,15 +77,51 @@ class StoreController(
         // MultipartFile을 BufferedReader로 변환
         val reader = BufferedReader(InputStreamReader(file.inputStream))
 
-        // CSV 파일의 각 라인을 읽어 처리
-        var line: String?
-        while (reader.readLine().also { line = it } != null) {
-            // 각 라인에 대한 처리 수행
-            println(line)
-        }
 
-        // 작업이 끝나면 리더를 닫습니다.
+        // CSV 파일의 각 라인을 읽어 처리
+        var line: String? = reader.readLine()
+        while (line != null && reader.readLine().also { line = it } != null) {
+            val data = line!!.split(",")
+
+
+            val store = Store(
+                shopName = data[0],
+                mallName = data[1],
+                domain = data[2],
+                phoneNumber = data[3],
+                email = data[4],
+                businessType = data[5],
+                address = data[6],
+                saleNumber = data[7],
+                firstReportDate = data[8],
+                situation = data[9],
+                totalEvaluation = data[10].toIntOrNull() ?: 0,
+                businessInformationEvaluation = data[11].toIntOrNull() ?: 0,
+                withdrawalEvaluation = data[12].toIntOrNull() ?: 0,
+                approvalEvaluation = data[13].toIntOrNull() ?: 0,
+                termsEvaluation = data[14].toIntOrNull() ?: 0,
+                privacyEvaluation = data[15].toIntOrNull() ?: 0,
+                mainItem = data[16],
+                withdrawPossible = data[17],
+                initialScreen = data[18],
+                payment = data[19],
+                termCompliance = data[20],
+                privacyStatement = data[21],
+                requestTermOver = data[22],
+                safetyService = data[23],
+                securityServer = data[24],
+                certificationMark = data[25],
+                deliveryDate = data[26],
+                refundDeliveryFee = data[27],
+                customerComplaintBoard = data[28],
+                cancelMembership = data[29],
+                siteOpening = data[30],
+                monitoringDate = data[31]
+            )
+            storeRepository.save(store)
+        }
         reader.close()
+
     }
 
     @PostMapping("/rating-status")
